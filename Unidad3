@@ -1,3 +1,10 @@
+-para clonar un repo:
+git clone htts://<username>@github.com/<username>/<reponame>.git
+
+-MERGETOOL:
+$ git mergetool -t meld
+(instalar meld)
+
 -DIFFTOOL:
 $ git difftool
 
