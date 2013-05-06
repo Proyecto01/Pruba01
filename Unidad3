@@ -1,0 +1,62 @@
+-DIFFTOOL:
+$ git difftool
+
+-UNIDAD2:
+-tags:
+$ git tag: lista las etiquetas
+$ git tag -l 'v1.4.2.*'
+Git usa dos tipos principales de etiquetas: ligeras y anotadas.
+ligera: un puntero a una confirmacion especifica
+anotada: almacenada como objetos completos en la bd de git
+
+-crear tag anotada:
+$ git tag -a v1.4 -m 'my version 1.4'
+$ git show v1.4
+
+-crear tag ligero:
+$ git tag <nombre_tag>
+
+-etiquetando mas tarde:
+git tag -a v1.2 <hash>
+
+-compartiendo etiquetas:
+- git push origin <tagname>
+
+
+-Rebase:
+ git checkout experiment
+ git rebase master
+En este momento, puedes volver a la rama 'master' y hacer una fusión con avance rápido (fast-forward merge):
+ git co master
+ git merge client
+
+
+
+-Mas de una rama:
+git rebase --onto master server client
+
+Y, tras esto, ya puedes avanzar la rama principal (ver Figura 3-33):
+
+$ git checkout master
+$ git merge client
+
+git co server
+git rebase master server
+Después, puedes avanzar rápidamente la rama base ('master'):
+$ git checkout master
+$ git merge server
+
+- Borrar ramas que ya utilice:
+$ git branch -d client
+$ git branch -d server
+
+Si solo usas la reorganización como una vía para hacer limpieza y organizar confirmaciones de cambio antes de enviarlas, y si únicamente reorganizas confirmaciones que nunca han sido públicas. Entonces no tendrás problemas. Si, por el contrario, reorganizas confirmaciones que alguna vez han sido públicas y otra gente ha basado su trabajo en ellas. Entonces estarás en un aprieto.
+
+6.5]
+git blame para anotar ese archivo y ver así cuándo y por quién fue editada por última vez cada una de sus líneas. En este ejemplo, se ha utilizado la opción -L para limitar la salida a las líneas desde la 12 hasta la 22
+
+
+
+Por ejemplo, en caso de aparecer problemas justo tras enviar a producción un cierto código que parecia funcionar bien en el entorno de desarrollo. Si, volviendo atras, resulta que se consigue reproducir el problema, pero cuesta identificar su causa. Se puede ir biseccionando el código para intentar localizar el punto del historial desde donde se presenta el problema. Primero se lanza el comando git bisect start para iniciar el proceso de búsqueda. Luego, con el comando git bisect bad, se le indica al sistema cual es la confirmación de cambios a partir de donde se han detectado los problemas. Y después, con el comando git bisect good [good_commit], se le indica cual es la última confirmación de cambios conocida donde el código funcionaba bien:
+Al terminar la revisión, es obligatorio teclear el comando git bisect reset para devolver HEAD al punto donde estaba antes de comenzar todo el proceso de búsqueda. 
+
